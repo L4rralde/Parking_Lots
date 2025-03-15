@@ -6,3 +6,4 @@ Untitled*
 __pycache__
 logs
 *.log
+.venv
