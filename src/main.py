@@ -1,21 +1,30 @@
+"""
+Periodically scraps parking lot data from ISSEG's website
+"""
+
 from time import sleep
 
 from scrapper import Scrapper
 from data import Data
+from misc import logger
 
 
-def main():
+def main() -> None:
+    """
+    Requests new data from web scrapper eavery minute.
+    Saves the data
+    """
     scrapper = Scrapper()
     db = Data()
     try:
         for data in scrapper():
-            print(data)
+            logger.info(data)
             db.append(data)
-            sleep(10)
+            sleep(60)
     except KeyboardInterrupt:
-        print("Interrupted")
+        logger.info("Interrupted")
     finally:
-        print("Finishing program")
+        logger.info("Finishing program")
         scrapper.finish()
         db.finish()
 

@@ -4,3 +4,5 @@ backups
 .ipynb_checkpoints/
 Untitled*
 __pycache__
+logs
+*.log

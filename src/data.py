@@ -1,14 +1,21 @@
+"""
+Code to load stored parking lot data
+Author: Emmanuel Larralde
+"""
+
 from datetime import datetime
 import os
 
 import pandas as pd
-import git
 
-git_repo = git.Repo(__file__, search_parent_directories=True)
-git_root = git_repo.git.rev_parse("--show-toplevel")
+from misc import GIT_ROOT, logger
+
 
 class Data:
-    __dir_path = f"{git_root}/data/"
+    """
+    Class to manage parking lot datas with csv files and pandas
+    """
+    __dir_path = f"{GIT_ROOT}/data/" #Path of data directory
     def __init__(self) -> None:
         self.df = pd.read_csv(f"{self.__dir_path}/data.csv")
         self.df = self.df.loc[:, ~self.df.columns.str.contains('^Unnamed')]
@@ -21,6 +28,9 @@ class Data:
         self.cnt = 1
 
     def append(self, d: dict) -> None:
+        """
+        Appends new parking lot data
+        """
         if not d:
             return
         new_d = {
@@ -35,8 +45,14 @@ class Data:
             self.save()
 
     def save(self) -> None:
-        print("Saving data")
+        """
+        Writes back new data to csv file
+        """
+        logger.info("Saving data")
         self.df.to_csv(f"{self.__dir_path}/data.csv")
 
     def finish(self) -> None:
+        """
+        Saves the data when program finishes
+        """
         self.save()
