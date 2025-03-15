@@ -1,0 +1,6 @@
+*secrets*
+backups
+.DS_Store
+.ipynb_checkpoints/
+Untitled*
+__pycache__
