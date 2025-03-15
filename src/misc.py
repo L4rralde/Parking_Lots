@@ -11,8 +11,8 @@ from datetime import datetime
 import git
 
 
-__git_repo = git.Repo(__file__, search_parent_directories=True)
-GIT_ROOT = __git_repo.git.rev_parse("--show-toplevel") #Root directory path
+git_repo = git.Repo(__file__, search_parent_directories=True)
+GIT_ROOT = git_repo.git.rev_parse("--show-toplevel") #Root directory path
 
 if not os .path.exists(f"{GIT_ROOT}/logs"): #Logs directory
     os.makedirs(f"{GIT_ROOT}/logs")
