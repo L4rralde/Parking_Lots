@@ -9,11 +9,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.headless = True
 
 from misc import logger
 
 
 URL = "https://estacionamientos.isseg.gob.mx:8070/"
+web_driver_path = "/usr/bin/chromedriver"
 
 
 class Scrapper:
@@ -31,7 +36,9 @@ class Scrapper:
     ]
     def __init__(self, url: str = URL) -> None:
         self.url = url
-        self.driver = webdriver.Chrome()
+        cService = webdriver.ChromeService(executable_path=web_driver_path)
+        self.driver = webdriver.Chrome(service = cService)
+        #self.driver = webdriver.Chrome(web_driver_path)
 
     def __call__(self, *args, **kwargs) -> Iterator[dict]:
         """

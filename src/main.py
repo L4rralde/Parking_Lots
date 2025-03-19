@@ -20,7 +20,7 @@ def main() -> None:
         for data in scrapper():
             logger.info(data)
             db.append(data)
-            sleep(60)
+            sleep(300)
     except KeyboardInterrupt:
         logger.info("Interrupted")
     finally:
