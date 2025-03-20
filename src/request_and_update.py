@@ -8,7 +8,7 @@ from data import Data
 from misc import git_repo, now
 
 
-dst_branch = "update_data_with_actions"
+DST_BRANCH = "update_data_with_actions"
 
 
 def main():
@@ -26,14 +26,14 @@ def main():
     git_repo.index.add('data/data.csv')
     git_repo.index.commit(f"Updating csv file at {when}")
     git_repo.git.stash('save')
-    if dst_branch not in git_repo.references:
-        git_repo.git.checkout("-b", dst_branch)
+    if DST_BRANCH not in git_repo.references:
+        git_repo.git.checkout("-b", DST_BRANCH)
     else:
-        git_repo.git.checkout(dst_branch)
+        git_repo.git.checkout(DST_BRANCH)
     git_repo.git.checkout(branch, "data/data.csv")
     git_repo.index.add('data/data.csv')
     git_repo.index.commit(f"Updating csv file at {when}")
-    git_repo.git.push("--set-upstream", "origin", dst_branch)
+    git_repo.git.push("--set-upstream", "origin", DST_BRANCH)
     git_repo.git.checkout(branch)
     git_repo.head.reset('HEAD~1', index=True, working_tree=True)
     if git_repo.git.stash('list'):
