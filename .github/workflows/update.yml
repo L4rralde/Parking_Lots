@@ -13,6 +13,9 @@ on:
 
 
 jobs:
+  job-name:
+    permissions:
+      contents: write
   build:
     runs-on: ubuntu-latest
     steps:
