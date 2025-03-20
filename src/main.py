@@ -4,7 +4,7 @@ Periodically scraps parking lot data from ISSEG's website
 
 from time import sleep
 
-from scrapper import Scrapper
+from requester import Requester
 from data import Data
 from misc import logger
 
@@ -14,7 +14,7 @@ def main() -> None:
     Requests new data from web scrapper eavery minute.
     Saves the data
     """
-    scrapper = Scrapper()
+    scrapper = Requester()
     db = Data()
     try:
         for data in scrapper():
