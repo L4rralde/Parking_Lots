@@ -30,7 +30,7 @@ def main():
         git_repo.git.checkout("-b", DST_BRANCH)
     else:
         git_repo.git.checkout(DST_BRANCH)
-    git_repo.git.pull("origin", DST_BRANCH)
+    git_repo.git.pull("--rebase", "origin", DST_BRANCH)
     git_repo.git.checkout(branch, "data/data.csv")
     git_repo.index.add('data/data.csv')
     git_repo.index.commit(f"Updating csv file at {when}")
