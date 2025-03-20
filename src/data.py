@@ -3,12 +3,11 @@ Code to load stored parking lot data
 Author: Emmanuel Larralde
 """
 
-from datetime import datetime
 import os
 
 import pandas as pd
 
-from misc import GIT_ROOT, logger
+from misc import GIT_ROOT, logger, now
 
 
 class Data:
@@ -23,7 +22,7 @@ class Data:
         if not os.path.exists(f"{self.__dir_path}/backups/"):
             os.makedirs(f"{self.__dir_path}/backups/")
         df_cp.to_csv(
-            f"{self.__dir_path}/backups/data.{str(datetime.now())}.csv"
+            f"{self.__dir_path}/backups/data.{str(now())}.csv"
         )
         self.cnt = 1
 
@@ -37,8 +36,9 @@ class Data:
             key: [value]
             for key, value in d.items()
         }
-        new_d["Fecha_Hora"] = [datetime.now()]
+        new_d["Fecha_Hora"] = [now()]
         new_row = pd.DataFrame(new_d)
+        logger.info("Receiving new data: %s", new_d)
         self.df = pd.concat([self.df, new_row], ignore_index=True)
         self.cnt = (self.cnt + 1) % 10
         if self.cnt == 0:

@@ -18,7 +18,6 @@ def main() -> None:
     db = Data()
     try:
         for data in scrapper():
-            logger.info(data)
             db.append(data)
             sleep(60)
     except KeyboardInterrupt:

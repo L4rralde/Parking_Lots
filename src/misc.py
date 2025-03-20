@@ -7,8 +7,19 @@ import os
 import sys
 import logging
 from datetime import datetime
+from pytz import timezone
 
 import git
+
+
+tz = timezone("America/Mexico_City")
+
+
+def now() -> datetime:
+    """
+    Returns now datetime with the desired format
+    """
+    return datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
 
 
 git_repo = git.Repo(__file__, search_parent_directories=True)
@@ -20,13 +31,13 @@ if not os .path.exists(f"{GIT_ROOT}/logs"): #Logs directory
 #Logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-__fh = logging.FileHandler(f"{GIT_ROOT}/logs/{datetime.now()}.log")
+__fh = logging.FileHandler(f"{GIT_ROOT}/logs/{now()}.log")
 
 __ch = logging.StreamHandler(sys.stdout)
 __ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
 formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    '%(name)s - %(levelname)s - %(message)s'
 )
 __ch.setFormatter(formatter)
 __fh.setFormatter(formatter)

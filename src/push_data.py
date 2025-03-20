@@ -2,10 +2,7 @@
 Pushes most recent version of data.csv to github
 Author: Emmanuel Larralde
 """
-
-from datetime import datetime
-
-from misc import git_repo
+from misc import git_repo, now
 
 
 def main():
@@ -13,7 +10,7 @@ def main():
     Pusehes new data to update_data branch on GitHub
     """
     git_repo.index.add('data/data.csv')
-    git_repo.index.commit(f"Updating csv file at {datetime.now()}")
+    git_repo.index.commit(f"Updating csv file at {now()}")
     if "update_data" not in git_repo.references:
         git_repo.git.checkout("-b", "update_data")
     else:

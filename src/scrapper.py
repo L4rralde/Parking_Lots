@@ -9,11 +9,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 from misc import logger
-
-
-URL = "https://estacionamientos.isseg.gob.mx:8070/"
 
 
 class Scrapper:
@@ -29,9 +28,18 @@ class Scrapper:
         "Irapuato-Hidalgo",
         "Leon-Mariachi",
     ]
-    def __init__(self, url: str = URL) -> None:
+    __URL = "https://estacionamientos.isseg.gob.mx:8070/"
+    __DRIVER = "/opt/homebrew/bin/chromedriver"
+    def __init__(self, url: str = "") -> None:
+        if url == "":
+            url = self.__URL
         self.url = url
-        self.driver = webdriver.Chrome()
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--headless=new")
+        service = Service(executable_path=self.__DRIVER)
+        self.driver = webdriver.Chrome(service=service, options=options)
 
     def __call__(self, *args, **kwargs) -> Iterator[dict]:
         """
