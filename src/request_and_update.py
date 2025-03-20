@@ -24,8 +24,8 @@ def main():
     git_repo.git.push("--set-upstream", "origin", "update_data")
     git_repo.git.checkout("main")
     git_repo.head.reset('HEAD~1', index=True, working_tree=True)
-    print(git_repo.git.stash('list'))
-    git_repo.git.stash('pop')
+    if git_repo.git.stash('list'):
+        git_repo.git.stash('pop')
 
 if __name__ == '__main__':
     main()
