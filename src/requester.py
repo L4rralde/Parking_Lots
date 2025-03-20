@@ -64,6 +64,6 @@ class Requester:
 
     def finish(self) -> None:
         """
-        Properly quits requesting
+        Properly quits requesting. Does nothing. Added to follow prev pattern
         """
         return
