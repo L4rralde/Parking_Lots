@@ -1,9 +1,17 @@
+"""
+Script. Requests parking lot data from website, appends the new data (one row)
+to the databases and pushes to github
+"""
+
 from requester import Requester
 from data import Data
 from misc import git_repo, now
 
 
 def main():
+    """
+    Main script. Same description as file docstring
+    """
     scrapper = Requester()
     db = Data()
     db.append(scrapper.step())
@@ -26,6 +34,7 @@ def main():
     git_repo.head.reset('HEAD~1', index=True, working_tree=True)
     if git_repo.git.stash('list'):
         git_repo.git.stash('pop')
+
 
 if __name__ == '__main__':
     main()
