@@ -8,7 +8,7 @@ from data import Data
 from misc import git_repo, now
 
 
-DST_BRANCH = "update_data_with_actions"
+DST_BRANCH = "main" #WARNING. Currently it only works on this branch
 
 
 def main():
@@ -30,7 +30,6 @@ def main():
         git_repo.git.checkout("-b", DST_BRANCH)
     else:
         git_repo.git.checkout(DST_BRANCH)
-    git_repo.git.pull("--rebase", "origin", DST_BRANCH)
     git_repo.git.checkout(branch, "data/data.csv")
     git_repo.index.add('data/data.csv')
     git_repo.index.commit(f"Updating csv file at {when}")
